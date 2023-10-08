@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://ch31lbllen2kf"]
+
+[ext_resource type="PackedScene" uid="uid://2rrswr2pojae" path="res://scenes/geometria.tscn" id="1_bj824"]
+[ext_resource type="Texture2D" uid="uid://cdmrx28bgo7o4" path="res://assets/sprites/b.png" id="2_00nu5"]
+[ext_resource type="Shader" path="res://shaders/alpha_mask.gdshader" id="3_671nm"]
+[ext_resource type="Texture2D" uid="uid://c53ghoq8eevnu" path="res://assets/sprites/a.png" id="4_1tsin"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lq5jc"]
+viewport_path = NodePath("MaskTexture")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kme3m"]
+resource_local_to_scene = true
+shader = ExtResource("3_671nm")
+shader_parameter/maskTexture = SubResource("ViewportTexture_lq5jc")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MaskTexture" type="SubViewport" parent="."]
+disable_3d = true
+size = Vector2i(1152, 648)
+size_2d_override_stretch = true
+
+[node name="Node2D" parent="MaskTexture" instance=ExtResource("1_bj824")]
+
+[node name="ImageB" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_00nu5")
+stretch_mode = 1
+
+[node name="ImageA" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_kme3m")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_1tsin")
